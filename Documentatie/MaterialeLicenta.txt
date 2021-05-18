@@ -1,0 +1,4 @@
+1. git - https://www.youtube.com/watch?v=KlggT7ZjKOw
+2. python os - https://www.youtube.com/watch?v=IIiKVaxHCX0
+3. subproccess call - https://www.youtube.com/watch?v=2Fp1N6dof0Y
+https://www.saltycrane.com/blog/2008/09/how-get-stdout-and-stderr-using-python-subprocess-module/

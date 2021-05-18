@@ -1,0 +1,38 @@
+SCANARE & ENUMERARE
+-------------------
+SERVER SIDE -- Python
+
+1. nmap - ports
+2. nmap - vulnscan pe porturile respective
+3. nessus -- script personalizat
+4. enum4linux --shares
+5. samrdump.py
+6. hydra - ssh, ftp etc
+
+CLIENT SIDE -- Python
+7. gobuster & dirbuster
+8. Zaproxy
+9. Hydra - login
+
+CONTROL SCRIPTS -- Bash
+10. Prelucrare 1) pentru a putea folosi 2)
+11. Prelucrare 4) pentru a extrage date importante
+12. Prelucrare 5)
+13. Prelucrare 6)
+
+14. Prelucrare 7)
+15. Prelucrare 8)
+16. Prelucrare 9)
+
+14. Pregatire Raport SERVER WEB = 1) + 10) + 2) +3) + 11) + 12) + 13) -- PYTHON
+15. Pregatire Raport SITE WEB = 7) + 8) + 9) -- PYTHON
+16. Pregatire raport TOTAL = 14) + 15) -- PYTHON
+17. Pregatire raport personalizat ? + ? + ? + ? -- PYTHON
+
+18. Adaugare raport in baza de date
+19. Trimite raport pe mail
+
+takaframework@gmail.com
+X3RnJnnPcU4p
+
+
