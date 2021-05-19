@@ -11,6 +11,8 @@ user_input = sys.argv[1]
 comanda_mkdir = "mkdir SCANS/" + user_input
 comanda_scanPorts = "nmap -T4 " + user_input + " > SCANS/" + user_input + "/scanare"
 comanda_getPorts = "./onlyports.sh " + user_input
+comanda_getVulns = "./onlyvulns.sh " + user_input + " > SCANS/" + user_input + "/nmap_vuln_scan"
+comanda_getServ = "./onlyservices.sh " + user_input + " > SCANS/" + user_input + "/nmap_service_scan"
 comanda_check = 'ls SCANS'
 comanda_dir = 'mkdir SCANS'
 
@@ -37,6 +39,7 @@ def verificare_folder_scanari():
 
 
 def scan_ports_servies():
+    print("Scanarea pentru enumerarea serviciilor inceputa")
     scanare_nmapPorts = subprocess.run(comanda_scanPorts, shell=True)
     if scanare_nmapPorts.returncode == 0:
         global ports
@@ -48,6 +51,8 @@ def scan_ports_servies():
 
         if scanare_nmapService.returncode == 0:
             print('Scanarea serviciilor efectuata cu succes')
+            subprocess.run(comanda_getServ, shell=True)
+            subprocess.run('rm -rf SCANS/' + user_input + '/scan', shell=True)
     else:
         raise Exception("A aparut o eroare in timpul scanarii. Verifica datele")
 
@@ -55,11 +60,22 @@ def scan_ports_servies():
 def vuln_scan():
     print("Scanarea pentru vulnerabilitati inceputa")
     comanda_vulnScan = "nmap -sV --script=vuln -p" + ports.decode() + " -T4 " + user_input + " > SCANS/" + user_input + "/vuln_scan"
-    scanare_vulnScan = subprocess.run(comanda_vulnScan,shell=True)
+    scanare_vulnScan = subprocess.run(comanda_vulnScan, shell=True)
     if scanare_vulnScan.returncode == 0:
-        print('TODO script prelucrare vuln_scan')
+        prelucrare_vuln = subprocess.run(comanda_getVulns, shell=True)
+        print('Scanarea pentru vulnerabilitati efectuata cu succes')
+        subprocess.run('rm -rf SCANS/' + user_input + '/vuln_scan', shell=True)
     else:
         raise Exception("A aparut o eroare in timpul scanarii. Verifica datele")
+
+
+def raport_nmap():
+    print("Se pregateste raportul nmap")
+    raport = subprocess.run('./raport_nmap.sh ' + user_input + ' ' + ports.decode(), shell=True)
+    if raport.returncode == 0:
+        print('Raportul nmap este gata')
+    else:
+        raise Exception("A aparut o eroare in timpul crearii raportului")
 
 
 verificare_input(user_input)
@@ -67,4 +83,4 @@ verificare_folder_scanari()
 mkdir_scans()
 scan_ports_servies()
 vuln_scan()
-
+raport_nmap()
