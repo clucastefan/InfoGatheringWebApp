@@ -10,9 +10,9 @@ REGEX_DNS = "^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z
 user_input = sys.argv[1]
 comanda_mkdir = "mkdir SCANS/" + user_input
 comanda_scanPorts = "nmap -T4 " + user_input + " > SCANS/" + user_input + "/scanare"
-comanda_getPorts = "./onlyports.sh " + user_input
-comanda_getVulns = "./onlyvulns.sh " + user_input + " > SCANS/" + user_input + "/nmap_vuln_scan"
-comanda_getServ = "./onlyservices.sh " + user_input + " > SCANS/" + user_input + "/nmap_service_scan"
+comanda_getPorts = "./nmap_bash/onlyports.sh " + user_input
+comanda_getVulns = "./nmap_bash/onlyvulns.sh " + user_input + " > SCANS/" + user_input + "/nmap_vuln_scan"
+comanda_getServ = "./nmap_bash/onlyservices.sh " + user_input + " > SCANS/" + user_input + "/nmap_service_scan"
 comanda_check = 'ls SCANS'
 comanda_dir = 'mkdir SCANS'
 
@@ -71,7 +71,7 @@ def vuln_scan():
 
 def raport_nmap():
     print("Se pregateste raportul nmap")
-    raport = subprocess.run('./raport_nmap.sh ' + user_input + ' ' + ports.decode(), shell=True)
+    raport = subprocess.run('./nmap_bash/raport_nmap.sh ' + user_input + ' ' + ports.decode(), shell=True)
     if raport.returncode == 0:
         print('Raportul nmap este gata')
     else:
