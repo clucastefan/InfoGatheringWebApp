@@ -42,7 +42,7 @@ def scanare_samba():
 
 def verificare_enum():
     verificare = subprocess.check_output(comanda_verificare_enum, shell=True).strip()
-    verificare2 = subprocess.run(comanda_verificare_enum, shell=True,stdout=subprocess.DEVNULL)
+    verificare2 = subprocess.run(comanda_verificare_enum, shell=True, stdout=subprocess.DEVNULL)
     if verificare2.returncode == 0:
         if verificare.decode() == "2":
             print("Nu se poate face conexiunea cu " + user_input + " sau serverul nu contine samba shares")
@@ -55,32 +55,49 @@ def verificare_enum():
 
 
 def prel_folders():
-    print("TODO share_folders.sh")
+    folders = subprocess.run('./share_bash/share_folders.sh ' + user_input, shell=True)
+    if folders.returncode != 0:
+        raise Exception("Eroare la prelucrare folders")
+    return True
 
 
 def prel_nbstat():
-    print("TODO share_nbstat.sh")
+    nbstat = subprocess.run('./share_bash/share_nbstat.sh ' + user_input, shell=True)
+    if nbstat.returncode != 0:
+        raise Exception("Eroare la prelucrare nbtstat")
+    return True
 
 
 def prel_pass():
-    print("TODO share_pass.sh")
+    passw = subprocess.run('./share_bash/share_pass.sh ' + user_input, shell=True)
+    if passw.returncode != 0:
+        raise Exception("Eroare la prelucrare pass")
+    return True
 
 
 def prel_users():
-    print("TODO share_users.sh")
+    users = subprocess.run('./share_bash/share_users.sh ' + user_input, shell=True)
+    if users.returncode != 0:
+        raise Exception("Eroare la prelucrare users")
+    return True
 
 
-# verificare_input(user_input)
-# verificare_folder()
-# scanare_samba()
+def raport_enum():
+    subprocess.run('./share_bash/raport_enum.sh ' + user_input, shell=True)
+
+
+verificare_input(user_input)
+verificare_folder()
+scanare_samba()
 if verificare_enum():
+    prel_users()
+    prel_nbstat()
+    prel_folders()
+    prel_pass()
+    raport_enum()
     print("Raport finalizat")
-    # prel_users()
-    # prel_nbstat()
-    # prel_folders()
-    # prel_pass()
-    # raport_enum()
+
 else:
     print("Raport finalizat")
-    subprocess.run(comanda_raport_false,shell=True)
+    subprocess.run(comanda_raport_false, shell=True)
 

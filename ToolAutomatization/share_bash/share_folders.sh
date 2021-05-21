@@ -15,4 +15,5 @@ echo "" >> SCANS/$command/share_folders
 echo "$(cat SCANS/$command/share_enum | grep Disk; cat SCANS/$command/share_enum | grep IPC | sed '$d';cat SCANS/$command/share_enum | grep 'C$' | sed '$d')" >> SCANS/$command/share_folders
 echo "" >> SCANS/$command/share_folders
 echo "$(cat SCANS/10.10.254.71/share_enum | grep -w "Mapping")" >> SCANS/$command/share_folders
+echo "" >> SCANS/$command/share_folders
 

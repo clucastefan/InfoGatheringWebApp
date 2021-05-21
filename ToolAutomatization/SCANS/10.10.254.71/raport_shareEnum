@@ -1,0 +1,59 @@
+Scanare samba pentru 10.10.254.71
+
+Informatii pentru 10.10.254.71
+
+Domain Name: WORKGROUP
+OS Info: 10.10.254.71
+	SKYNET         Wk Sv PrQ Unx NT SNT skynet server (Samba, Ubuntu)
+	platform_id     :	500
+	os version      :	6.1
+	server type     :	0x809a03
+
+Null Session : 
+Server 10.10.254.71 allows sessions using username '', password ''
+
+Enumerare Shares : 
+
+	print$          Disk      Printer Drivers
+	anonymous       Disk      Skynet Anonymous Share
+	milesdyson      Disk      Miles Dyson Personal Share
+	IPC$            IPC       IPC Service (skynet server (Samba, Ubuntu))
+
+//10.10.254.71/print$	Mapping: DENIED, Listing: N/A
+//10.10.254.71/anonymous	Mapping: OKListing: OK
+//10.10.254.71/milesdyson	Mapping: DENIED, Listing: N/A
+
+Rezultate Nbtstat : 
+
+	SKYNET          <00> -         B <ACTIVE>  Workstation Service
+	SKYNET          <03> -         B <ACTIVE>  Messenger Service
+	SKYNET          <20> -         B <ACTIVE>  File Server Service
+	..__MSBROWSE__. <01> - <GROUP> B <ACTIVE>  Master Browser
+	WORKGROUP       <00> - <GROUP> B <ACTIVE>  Domain/Workgroup Name
+	WORKGROUP       <1d> -         B <ACTIVE>  Master Browser
+	WORKGROUP       <1e> - <GROUP> B <ACTIVE>  Browser Service Elections
+
+Password Info for Domain: SKYNET
+
+ Minimum password length: 5
+ Password history length: None
+ Maximum password age: 37 days 6 hours 21 minutes 
+ Password Complexity Flags: 000000
+
+	 Domain Refuse Password Change: 0
+	 Domain Password Store Cleartext: 0
+	 Domain Password Lockout Admins: 0
+	 Domain Password No Clear Change: 0
+	 Domain Password No Anon Change: 0
+	 Domain Password Complex: 0
+
+ Minimum password age: None
+ Reset Account Lockout Counter: 30 minutes 
+ Locked Account Duration: 30 minutes 
+ Account Lockout Threshold: None
+ Forced Log off Time: 37 days 6 hours 21 minutes 
+Password Complexity: Disabled
+
+Utilizatorii enumerati : [user] [rid]
+
+user:[milesdyson] rid:[0x3e8]
