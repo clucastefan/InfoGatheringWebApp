@@ -1,0 +1,22 @@
+Informatii pentru 10.10.254.71
+
+Domain Name: WORKGROUP
+OS Info: 10.10.254.71
+	SKYNET         Wk Sv PrQ Unx NT SNT skynet server (Samba, Ubuntu)
+	platform_id     :	500
+	os version      :	6.1
+	server type     :	0x809a03
+
+Null Session : 
+Server 10.10.254.71 allows sessions using username '', password ''
+
+Enumerare Shares : 
+
+	print$          Disk      Printer Drivers
+	anonymous       Disk      Skynet Anonymous Share
+	milesdyson      Disk      Miles Dyson Personal Share
+	IPC$            IPC       IPC Service (skynet server (Samba, Ubuntu))
+
+//10.10.254.71/print$	Mapping: DENIED, Listing: N/A
+//10.10.254.71/anonymous	Mapping: OKListing: OK
+//10.10.254.71/milesdyson	Mapping: DENIED, Listing: N/A
