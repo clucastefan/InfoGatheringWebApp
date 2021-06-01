@@ -16,6 +16,7 @@ comanda_creare_folder = "mkdir SCANS; mkdir SCANS/" + user_input
 hydra_ssh = "timeout 180s hydra -L " + LIST_USERNAME + " -P " + LIST_PASSWORD + " ssh://" + user_input + " -t 5 -f > SCANS/" + user_input + "/hydra_ssh"
 hydra_ftp = "timeout 180s hydra -L " + LIST_USERNAME + " -P " + LIST_PASSWORD + " ftp://" + user_input + " -t 5 -f > SCANS/" + user_input + "/hydra_ftp"
 hydra_telnet = "timeout 180s hydra -L " + LIST_USERNAME + " -P " + LIST_PASSWORD + " telnet://" + user_input + "  -t 5 -f > SCANS/" + user_input + "/hydra_telnet"
+hydra_raport = "./hydra_bash/raport_hydra.sh " + user_input
 
 
 def verificare_input(input):
@@ -74,9 +75,17 @@ def telnet_hydra():
         return
 
 
+def raport_hydra():
+    print("Se realizeaza raportul Hydra")
+    try:
+        raport = subprocess.run(hydra_raport, shell=True)
+    except:
+        raise Exception("Eroare la crearea raportului")
+
+
 verificare_input(user_input)
 verificare_folder()
 ssh_hydra()
 ftp_hydra()
 telnet_hydra()
-
+raport_hydra()

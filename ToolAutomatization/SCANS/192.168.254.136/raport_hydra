@@ -5,6 +5,6 @@ Se testeaza SSH[22], FTP[21] si TELNET[23]
 
 [22][ssh] host: 192.168.254.136   login: msfadmin   password: msfadmin
 [21][ftp] host: 192.168.254.136   login: msfadmin   password: msfadmin
-
+[23][telnet] host: 192.168.254.136   login: msfadmin   password: msfadmin
 
 [ATENTIE] Se recomanda schimbarea imediata a credentialelor intrucat se gasesc in liste cunoscute.
