@@ -1,0 +1,95 @@
+Scanare samba pentru 192.168.254.136
+
+Informatii pentru 192.168.254.136
+
+Domain Name: WORKGROUP
+OS Info: 192.168.254.136
+	METASPLOITABLE Wk Sv PrQ Unx NT SNT metasploitable server (Samba 3.0.20-Debian)
+	platform_id     :	500
+	os version      :	4.9
+	server type     :	0x9a03
+
+Null Session : 
+Server 192.168.254.136 allows sessions using username '', password ''
+
+Enumerare Shares : 
+
+	print$          Disk      Printer Drivers
+	tmp             Disk      oh noes!
+	opt             Disk      
+	IPC$            IPC       IPC Service (metasploitable server (Samba 3.0.20-Debian))
+	ADMIN$          IPC       IPC Service (metasploitable server (Samba 3.0.20-Debian))
+
+//192.168.254.136/print$	Mapping: DENIED, Listing: N/A
+//192.168.254.136/tmp	Mapping: OKListing: OK
+//192.168.254.136/opt	Mapping: DENIED, Listing: N/A
+//192.168.254.136/ADMIN$	Mapping: DENIED, Listing: N/A
+
+Rezultate Nbtstat : 
+
+	METASPLOITABLE  <00> -         B <ACTIVE>  Workstation Service
+	METASPLOITABLE  <03> -         B <ACTIVE>  Messenger Service
+	METASPLOITABLE  <20> -         B <ACTIVE>  File Server Service
+	..__MSBROWSE__. <01> - <GROUP> B <ACTIVE>  Master Browser
+	WORKGROUP       <00> - <GROUP> B <ACTIVE>  Domain/Workgroup Name
+	WORKGROUP       <1d> -         B <ACTIVE>  Master Browser
+	WORKGROUP       <1e> - <GROUP> B <ACTIVE>  Browser Service Elections
+
+Password Info for Domain: METASPLOITABLE
+
+ Minimum password length: 5
+ Password history length: None
+ Maximum password age: Not Set
+ Password Complexity Flags: 000000
+
+	 Domain Refuse Password Change: 0
+	 Domain Password Store Cleartext: 0
+	 Domain Password Lockout Admins: 0
+	 Domain Password No Clear Change: 0
+	 Domain Password No Anon Change: 0
+	 Domain Password Complex: 0
+
+ Minimum password age: None
+ Reset Account Lockout Counter: 30 minutes 
+ Locked Account Duration: 30 minutes 
+ Account Lockout Threshold: None
+ Forced Log off Time: Not Set
+Password Complexity: Disabled
+
+Utilizatorii enumerati : [user] [rid]
+
+user:[games] rid:[0x3f2]
+user:[nobody] rid:[0x1f5]
+user:[bind] rid:[0x4ba]
+user:[proxy] rid:[0x402]
+user:[syslog] rid:[0x4b4]
+user:[user] rid:[0xbba]
+user:[www-data] rid:[0x42a]
+user:[root] rid:[0x3e8]
+user:[news] rid:[0x3fa]
+user:[postgres] rid:[0x4c0]
+user:[bin] rid:[0x3ec]
+user:[mail] rid:[0x3f8]
+user:[distccd] rid:[0x4c6]
+user:[proftpd] rid:[0x4ca]
+user:[dhcp] rid:[0x4b2]
+user:[daemon] rid:[0x3ea]
+user:[sshd] rid:[0x4b8]
+user:[man] rid:[0x3f4]
+user:[lp] rid:[0x3f6]
+user:[mysql] rid:[0x4c2]
+user:[gnats] rid:[0x43a]
+user:[libuuid] rid:[0x4b0]
+user:[backup] rid:[0x42c]
+user:[msfadmin] rid:[0xbb8]
+user:[telnetd] rid:[0x4c8]
+user:[sys] rid:[0x3ee]
+user:[klog] rid:[0x4b6]
+user:[postfix] rid:[0x4bc]
+user:[service] rid:[0xbbc]
+user:[list] rid:[0x434]
+user:[irc] rid:[0x436]
+user:[ftp] rid:[0x4be]
+user:[tomcat55] rid:[0x4c4]
+user:[sync] rid:[0x3f0]
+user:[uucp] rid:[0x3fc]
