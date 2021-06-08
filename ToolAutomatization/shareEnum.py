@@ -11,6 +11,7 @@ comanda_creare_folder = "mkdir SCANS; mkdir SCANS/" + user_input
 comanda_enum = "timeout 180s perl /opt/enum4linux/enum4linux.pl " + user_input + " > SCANS/" + user_input + "/share_enum"
 comanda_verificare_enum = "./share_bash/share_verificare.sh " + user_input + " | wc -l"
 comanda_raport_false = "./share_bash/raport_enum_null.sh " + user_input
+sterge_fisiere = "" # TODO
 
 
 def verificare_input(input):

@@ -1,10 +1,13 @@
 Testare brute force pentru 192.168.254.136
 Se testeaza SSH[22], FTP[21] si TELNET[23]
+
+[NOTA] Daca raportul este gol, inseamna ca nu fost gasite combinatii valide de utilizator-parola
+
 [ATENTIE] Protocolul telnet prin natura sa nu este de incredere.
 [ATENTIE] Unele rezultate pot fi fals-pozitive. Se recomanda restestare manuala pentru TOATE rezultatele obtinute
 
 [22][ssh] host: 192.168.254.136   login: msfadmin   password: msfadmin
 [21][ftp] host: 192.168.254.136   login: msfadmin   password: msfadmin
-[23][telnet] host: 192.168.254.136   login: msfadmin   password: msfadmin
+
 
 [ATENTIE] Se recomanda schimbarea imediata a credentialelor intrucat se gasesc in liste cunoscute.

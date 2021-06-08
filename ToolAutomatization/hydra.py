@@ -6,8 +6,8 @@ import re
 
 REGEX_IP = "^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$"
 REGEX_DNS = "^(([a-zA-Z]|[a-zA-Z][a-zA-Z0-9\-]*[a-zA-Z0-9])\.)*([A-Za-z]|[A-Za-z][A-Za-z0-9\-]*[A-Za-z0-9])$"
-LIST_PASSWORD = "/dev/shm/SecLists/Passwords/Common-Credentials/10-million-password-list-top-100.txt"
-LIST_USERNAME = "/dev/shm/SecLists/Usernames/top-usernames-shortlist.txt"
+LIST_PASSWORD = "~/Documents/SecLists/Passwords/Common-Credentials/10-million-password-list-top-100.txt"
+LIST_USERNAME = "~/Documents/SecLists/Usernames/top-usernames-shortlist.txt"
 
 user_input = sys.argv[1]
 comanda_verificare_folder = "ls SCANS/" + user_input
@@ -17,6 +17,7 @@ hydra_ssh = "timeout 180s hydra -L " + LIST_USERNAME + " -P " + LIST_PASSWORD + 
 hydra_ftp = "timeout 180s hydra -L " + LIST_USERNAME + " -P " + LIST_PASSWORD + " ftp://" + user_input + " -t 5 -f > SCANS/" + user_input + "/hydra_ftp"
 hydra_telnet = "timeout 180s hydra -L " + LIST_USERNAME + " -P " + LIST_PASSWORD + " telnet://" + user_input + "  -t 5 -f > SCANS/" + user_input + "/hydra_telnet"
 hydra_raport = "./hydra_bash/raport_hydra.sh " + user_input
+sterge_fisiere = "rm -rf SCANS/" + user_input + "/hydra_ftp; rm -rf SCANS/" + user_input + "/hydra_ssh; rm -rf SCANS/" + user_input + "/hydra_telnet"
 
 
 def verificare_input(input):
@@ -81,6 +82,7 @@ def raport_hydra():
         raport = subprocess.run(hydra_raport, shell=True)
     except:
         raise Exception("Eroare la crearea raportului")
+    subprocess.run(sterge_fisiere, shell=True)
 
 
 verificare_input(user_input)
