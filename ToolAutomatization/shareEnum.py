@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import subprocess
 import sys
 import re
@@ -11,7 +13,11 @@ comanda_creare_folder = "mkdir SCANS; mkdir SCANS/" + user_input
 comanda_enum = "timeout 180s perl /opt/enum4linux/enum4linux.pl " + user_input + " > SCANS/" + user_input + "/share_enum"
 comanda_verificare_enum = "./share_bash/share_verificare.sh " + user_input + " | wc -l"
 comanda_raport_false = "./share_bash/raport_enum_null.sh " + user_input
-sterge_fisiere = "" # TODO
+sterge_fisiere = "rm -rf SCANS/" + user_input + "/share_folders; " \
+                 " rm -rf SCANS/" + user_input + "/share_nbtstat; " \
+                 " rm -rf SCANS/" + user_input + "/share_pass; " \
+                 " rm -rf SCANS/" + user_input + "/share_enum; " \
+                 " rm -rf SCANS/" + user_input + "/share_users; "
 
 
 def verificare_input(input):
@@ -97,8 +103,11 @@ if verificare_enum():
     prel_pass()
     raport_enum()
     print("Raport finalizat")
+    subprocess.run(sterge_fisiere, shell=True)
 
 else:
-    print("Raport finalizat")
     subprocess.run(comanda_raport_false, shell=True)
+    print("Raport finalizat")
+    subprocess.run(sterge_fisiere, shell=True)
+
 
