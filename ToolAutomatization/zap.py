@@ -94,10 +94,10 @@ def raport_zap():
         raise Exception("A aparut o eroare la livrarea raportului.")
 
 
-# verificare_input(user_input)
-# verificare_folder()
-# scan_zap()
-# prel_xml_short(xmlfile)
-# prel_xml_long(xmlfile)
+verificare_input(user_input)
+verificare_folder()
+scan_zap()
+prel_xml_short(xmlfile)
+prel_xml_long(xmlfile)
 raport_zap()
 subprocess.run(sterge_fisiere, shell=True)
