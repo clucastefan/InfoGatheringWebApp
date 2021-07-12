@@ -102,12 +102,12 @@ if verificare_enum():
     prel_folders()
     prel_pass()
     raport_enum()
-    print("Raport finalizat")
+    print("\n" + "Raportul enumerarii serverului samba este gata" + "\n")
     subprocess.run(sterge_fisiere, shell=True)
 
 else:
     subprocess.run(comanda_raport_false, shell=True)
-    print("Raport finalizat")
+    print("\n" + "Raportul enumerarii serverului samba este gata"+ "\n")
     subprocess.run(sterge_fisiere, shell=True)
 
 

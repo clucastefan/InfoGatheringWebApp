@@ -73,7 +73,9 @@ def raport_nmap():
     print("Se pregateste raportul nmap")
     raport = subprocess.run('./nmap_bash/raport_nmap.sh ' + user_input + ' ' + ports.decode(), shell=True)
     if raport.returncode == 0:
-        print('Raportul nmap este gata')
+        print('Raportul nmap este gata' + "\n")
+        subprocess.run('rm -rf SCANS/' + user_input + '/nmap_vuln_scan', shell=True)
+        subprocess.run('rm -rf SCANS/' + user_input + '/nmap_service_scan', shell=True)
     else:
         raise Exception("A aparut o eroare in timpul crearii raportului")
 

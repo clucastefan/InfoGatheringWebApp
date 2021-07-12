@@ -40,7 +40,7 @@ def verificare_folder():
 def scan_zap():
     print("Se incepe scanarea cu Zed Attack Proxy")
     try:
-        zap_scan = subprocess.run(comanda_zap, shell=True, stdout=subprocess.DEVNULL)
+        zap_scan = subprocess.run(comanda_zap, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         if zap_scan.returncode == 0:
             print("Scanarea pentru vulnerabilitati web terminata")
     except:
@@ -89,7 +89,7 @@ def raport_zap():
     try:
         raport = subprocess.run(comanda_raport, shell=True)
         if raport.returncode == 0:
-            print("Raport livrat.")
+            print("\nRaportul zap este gata\n")
     except:
         raise Exception("A aparut o eroare la livrarea raportului.")
 

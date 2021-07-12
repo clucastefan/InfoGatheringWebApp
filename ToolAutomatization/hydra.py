@@ -77,9 +77,9 @@ def telnet_hydra():
 
 
 def raport_hydra():
-    print("Se realizeaza raportul Hydra")
     try:
         raport = subprocess.run(hydra_raport, shell=True)
+        print("\n" + "Raportul hydra este gata" + "\n")
     except:
         raise Exception("Eroare la crearea raportului")
     subprocess.run(sterge_fisiere, shell=True)

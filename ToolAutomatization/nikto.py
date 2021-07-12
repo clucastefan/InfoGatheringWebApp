@@ -51,7 +51,7 @@ def raport_nikto():
     if raport.returncode != 0:
         raise Exception("A aparut o eroare la livrarea raportului.")
     subprocess.run(sterge_fisiere, shell=True)
-    print("Raport livrat")
+    print("\nRaportul nikto este gata\n")
 
 
 verificare_input(user_input)

@@ -47,7 +47,7 @@ def raport_dirb():
     try:
         raport = subprocess.run(comanda_raport_dirb, shell=True,stdout=subprocess.DEVNULL)
         if raport.returncode == 0:
-            print("Raport livrat")
+            print("\nRaportul dirb este gata\n")
         subprocess.run(sterge_fisiere, shell=True)
     except:
         raise Exception("A aparut o eroare la livrarea raportului")
