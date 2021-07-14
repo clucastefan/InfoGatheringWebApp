@@ -8,9 +8,9 @@ const ScanItem = props => {
     return <li className="place-item">
         <Card className="place-item__content">
             <div className="place-item__info">
+                <p1>{props.titlu}</p1>
                 <h2>{props.ipdns}</h2>
                 <h4>{props.tipScan}</h4>
-                <p1>{props.titlu}</p1>
                 <p>{props.descriere}</p>
             </div>
             <div className="place-item__actions">
