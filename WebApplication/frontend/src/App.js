@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-do
 import MainPage from './main/pages/Main';
 import NewScan from './scans/pages/NewScan';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
+import UserScans from './scans/pages/UserScan';
 
 function App() {
   return <Router>
@@ -12,6 +13,9 @@ function App() {
       <Switch>
         <Route path = "/" exact>
           <MainPage />
+        </Route>
+        <Route path="/:userId/myscans" exact>
+          <UserScans />
         </Route>
         <Route path = "/scans/new" exact>
           <NewScan />

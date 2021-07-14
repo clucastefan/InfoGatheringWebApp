@@ -1,7 +1,12 @@
 import React from 'react';
 
+import './NewScan.css'
+import Input from '../../shared/components/FormElements/Input';
+
 const NewScan = () => {
-    return <h2>NewScan</h2>
+    return <form className="place-form">
+        <Input element="input" type="text" label="Titlu" />
+    </form>
 };
 
 export default NewScan;
