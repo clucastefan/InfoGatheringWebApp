@@ -28,3 +28,13 @@
   margin-bottom: 0.5rem;
   color : white;
 }
+
+.ipdns {
+  text-align: center;
+}
+
+.tipscan{
+  text-align: center;
+  font-size: small;
+  color: #f07cdb;
+}

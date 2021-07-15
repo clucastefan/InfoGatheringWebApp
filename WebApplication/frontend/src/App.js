@@ -5,6 +5,7 @@ import MainPage from './main/pages/Main';
 import NewScan from './scans/pages/NewScan';
 import MainNavigation from './shared/components/Navigation/MainNavigation';
 import UserScans from './scans/pages/UserScan';
+import UpdateScan from './scans/pages/UpdateScan';
 
 function App() {
   return <Router>
@@ -19,6 +20,9 @@ function App() {
         </Route>
         <Route path = "/scans/new" exact>
           <NewScan />
+        </Route>
+        <Route path="/myscans/:scanId">
+          <UpdateScan/>
         </Route>
         <Redirect to = "/" />
       </Switch>
