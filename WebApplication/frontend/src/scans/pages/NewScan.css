@@ -8,3 +8,23 @@
     border-radius: 6px;
     background: #593E67;
   }
+
+  select {
+    list-style: none;
+    margin: 0 auto;
+    padding: 1rem;
+    width: 100%;
+    max-width: 40rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    border-radius: 6px;
+    background:#f07cdb;
+    color: white;
+    text-align: center;
+ }
+
+  label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color : white;
+}

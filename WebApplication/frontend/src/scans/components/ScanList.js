@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Card from '../../shared/components/UIElements/Card';
+import Button from '../../shared/components/FormElements/Button';
 import ScanItem from './ScanItem';
 import './ScanList.css';
 
@@ -9,8 +10,8 @@ const ScanList = props => {
         return ( 
         <div className="place-list center">
             <Card>
-                <h2>Nu exista niciun raport.</h2>
-                <button>SCANARE</button>
+                <h2>Nu exista niciun raport</h2>
+                <Button to='/scans/new'>SCANARE</Button>
             </Card>
         </div>
         );
