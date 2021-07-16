@@ -49,9 +49,9 @@ const NewScan = () => {
 
         <label>TIP SCANARE</label>
         <select id="tipScan" name="selectList">
-        <option value="FULL_SCAN">FULL SCAN</option>
-        <option value="WEB_SCAN">WEB SCAN</option>
-        <option value="SERVER_SCAN">SERVER SCAN</option>
+        <option value="FULL_SCAN">FULL-SCAN</option>
+        <option value="WEB_SCAN">WEB-SCAN</option>
+        <option value="SERVER_SCAN">SERVER-SCAN</option>
         </select>
 
         <Input 

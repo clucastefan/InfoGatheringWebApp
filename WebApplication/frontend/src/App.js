@@ -20,29 +20,47 @@ function App() {
     setIsLoggedIn(false);
   }, [])
 
+  let routes;
+
+  if (isLoggedIn){
+    routes = (
+      <Switch>
+        <Route path = "/" exact>
+              <MainPage />
+        </Route>
+        <Route path="/:userId/myscans" exact>
+            <UserScans />
+        </Route>
+        <Route path = "/myscans/new" exact>
+            <NewScan />
+        </Route>
+        <Route path="/myscans/:scanId">
+            <UpdateScan/>
+        </Route>
+        <Redirect to = "/" />
+      </Switch>
+    );
+  }
+  else {
+    routes = (
+      <Switch>
+        <Route path = "/" exact>
+              <MainPage />
+        </Route>
+        <Route path="/auth">
+            <Auth />
+        </Route>
+        <Redirect to = "/auth" />
+      </Switch>
+    );
+  }
+
   return ( 
     <AuthContext.Provider value={{isLoggedIn: isLoggedIn, login: login, logout: logout}}>
     <Router>
       <MainNavigation/>
       <main>
-        <Switch>
-          <Route path = "/" exact>
-            <MainPage />
-          </Route>
-          <Route path="/:userId/myscans" exact>
-            <UserScans />
-          </Route>
-          <Route path = "/myscans/new" exact>
-            <NewScan />
-          </Route>
-          <Route path="/myscans/:scanId">
-            <UpdateScan/>
-          </Route>
-          <Route path="/auth">
-            <Auth />
-          </Route>
-          <Redirect to = "/" />
-        </Switch>
+          {routes}
       </main>
     </Router>
     </AuthContext.Provider>
