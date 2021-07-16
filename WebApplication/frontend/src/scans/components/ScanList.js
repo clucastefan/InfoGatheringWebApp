@@ -11,7 +11,7 @@ const ScanList = props => {
         <div className="place-list center">
             <Card>
                 <h2>Nu exista niciun raport</h2>
-                <Button to='/scans/new'>SCANARE</Button>
+                <Button to='/myscans/new'>SCANARE</Button>
             </Card>
         </div>
         );
