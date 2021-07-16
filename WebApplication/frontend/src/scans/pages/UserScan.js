@@ -16,9 +16,9 @@ const DUMMY_SCANS = [
     {
         id: "scan2",
         titlu: "Scan rutina",
-        descriere: "Scaneaza site-ul dupa ultimul commit in productie dd/mm/yyyy",
+        descriere: "Scaneaza server pentru servicii vulnerabile",
         addr: "192.168.0.1",
-        tipScan: "WEB-SCAN",
+        tipScan: "SERVER-SCAN",
         creator: "utilizator2"
 
     }
