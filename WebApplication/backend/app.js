@@ -30,7 +30,7 @@ app.use((error, req, res, next) => {
     });
 });
 
-const newUrl = 'mongodb+srv://' + creds.USERNAME + ':'+ creds.PASSWORD +'@cluster0.jm9or.mongodb.net/licenta?retryWrites=true&w=majority'
+const newUrl = 'mongodb+srv://' + creds.USERNAME + ':'+ creds.PASSWORD +'@cluster0.jm9or.mongodb.net/' + creds.BD + '?retryWrites=true&w=majority'
 mongoose
     .connect(newUrl)
     .then( () => {
