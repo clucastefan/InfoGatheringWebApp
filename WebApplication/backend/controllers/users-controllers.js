@@ -43,7 +43,7 @@ const signup = async (req,res,next) => {
     }
 
     res.json({
-        scan: createdUser.toObject({getters:true})
+        user: createdUser.toObject({getters:true}) //scan
     });
 };
 
@@ -63,7 +63,7 @@ const login = async (req,res,next) => {
         return next(error);
     }
     
-    res.json({message: "Logged in"});
+    res.json({message: "Logged in", user: existingUser.toObject({getters: true})});
 };
 
 exports.signup = signup;

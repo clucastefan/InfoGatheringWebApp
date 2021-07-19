@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import './ScanForm.css'
 import Input from '../../shared/components/FormElements/Input';
 import { VALIDATOR_IPDNS, VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/util/validators';
 import Button from '../../shared/components/FormElements/Button';
 import { useForm } from '../../shared/hooks/form-hook';
-
+import { useHttpClient } from '../../shared/context/http-hook';
+import { AuthContext } from '../../shared/context/auth-context';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
 const NewScan = () => {
+    const auth = useContext(AuthContext);
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
     const [formState, inputHandler] = useForm({
         title: {
             value: '',
@@ -23,14 +29,33 @@ const NewScan = () => {
         }
     }, false);
 
-    const scanSubmitHandler = event => {
+    const history = useHistory();
+
+    const scanSubmitHandler = async event => {
         event.preventDefault();
         var e = document.getElementById("tipScan");
-        var tipScan = e.options[e.selectedIndex].text;
-        console.log(formState.inputs,tipScan);
+        var tipScanDropDown = e.options[e.selectedIndex].text;
+
+        try {
+            await sendRequest('http://localhost:5000/api/reports/', 'POST', JSON.stringify({
+                titlu: formState.inputs.title.value,
+                descriere: formState.inputs.descriere.value,
+                addr: formState.inputs.ipdns.value,
+                tipScan: tipScanDropDown,
+                creator: auth.userId,
+            }),
+            {
+                'Content-Type': 'application/json'
+            });
+            history.push('/');
+        } catch (err) {}
     };
 
-    return <form className="place-form" onSubmit={scanSubmitHandler}>
+    return ( 
+    <React.Fragment>
+    <ErrorModal error={error} onClear={clearError}/>
+    <form className="place-form" onSubmit={scanSubmitHandler}>
+        {isLoading && <LoadingSpinner asOverlay />}
         <Input 
             id="title"
             element="input" 
@@ -65,6 +90,7 @@ const NewScan = () => {
         
         <Button type="submit" disabled={!formState.isValid}>START SCAN</Button>
     </form>
+    </React.Fragment> )
 };
 
 export default NewScan;

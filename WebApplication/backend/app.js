@@ -20,7 +20,7 @@ app.use((req,res,next) => {
     next();
 });
 
-app.use('/api/reports',scansRoutes);
+app.use('/api/reports/',scansRoutes);
 app.use('/api/users/', usersRoutes);
 
 app.use((req,res,next) => {
