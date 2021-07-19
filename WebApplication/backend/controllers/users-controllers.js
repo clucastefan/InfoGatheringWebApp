@@ -1,17 +1,11 @@
 const uuid = require('uuid/v4');
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
+const mongoose = require('mongoose');
+
 
 const { validationResult } = require('express-validator');
 
-const DUMMY_USERS = [
-    {
-        id: 'utilizator1',
-        name: 'Luca Stefan',
-        email: 'ciobotaricaluca18@stud.ase.ro',
-        password: '12345'
-    }
-];
 
 const signup = async (req,res,next) => {
     const errors = validationResult(req);
@@ -20,7 +14,7 @@ const signup = async (req,res,next) => {
         return next (new HttpError("Invalid data. Check your input.",422));
     }
 
-    const { name, email, password, scans } = req.body;
+    const { name, email, password} = req.body;
 
     let existingUser;
     try{
@@ -39,7 +33,7 @@ const signup = async (req,res,next) => {
         name,
         email,
         password,
-        scans
+        scans: []
     });
 
     try {

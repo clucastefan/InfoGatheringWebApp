@@ -3,25 +3,9 @@ const { validationResult } = require('express-validator');
 
 const HttpError = require('../models/http-error');
 const Scan = require('../models/scan');
+const User = require('../models/user');
+const mongoose = require('mongoose');
 
-let DUMMY_SCANS = [
-    {
-        id: "scan1",
-        titlu: "Scan rutina",
-        descriere: "Scaneaza site-ul dupa ultimul commit in productie dd/mm/yyyy",
-        addr: "192.168.0.1",
-        tipScan: "WEB-SCAN",
-        creator: "utilizator1"
-    },
-    {
-        id: "scan2",
-        titlu: "Scan rutina",
-        descriere: "Scaneaza site-ul dupa ultimul commit in productie dd/mm/yyyy",
-        addr: "192.168.0.1",
-        tipScan: "WEB-SCAN",
-        creator: "utilizator2"
-    }
-];
 
 const getScansByUserId  = async (req, res, next) => {
     const userId = req.params.userId;
@@ -83,8 +67,35 @@ const createdScan = async (req,res,next) => {
         creator
     });
 
+    let user;
+
     try {
-        await createdScan.save();
+        user = await User.findById(creator);
+    } catch (err) {
+        const error = new HttpError('Scanarea nu poate efectua.',500);
+        return next(error);
+    }
+
+    if (!user){
+        const error = new HttpError('Unauthorized',404);
+        return next(error);
+    }
+
+    console.log(user);
+
+    try {
+        //await createdScan.save();
+
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await createdScan.save({session: sess});
+
+        user.scans.push(createdScan);
+
+        await user.save({session: sess});
+
+        await sess.commitTransaction();
+
     } catch (err) {
         const error = new HttpError('Adaugarea scanarii a esuat. Incearca din nou',500);
         return next(error);
