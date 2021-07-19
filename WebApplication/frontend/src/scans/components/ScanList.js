@@ -26,7 +26,8 @@ const ScanList = props => {
             titlu={scan.titlu} 
             descriere={scan.descriere} 
             creatorId={scan.creator} 
-            tipScan={scan.tipScan} 
+            tipScan={scan.tipScan}
+            onDelete={props.onDeleteScan}
         />)}
     </ul>;
 };

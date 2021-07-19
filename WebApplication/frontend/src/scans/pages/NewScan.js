@@ -47,7 +47,7 @@ const NewScan = () => {
             {
                 'Content-Type': 'application/json'
             });
-            history.push('/');
+            history.push(`/${auth.userId}/myscans`);
         } catch (err) {}
     };
 

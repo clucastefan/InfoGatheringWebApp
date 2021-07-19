@@ -1,34 +1,40 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import ScanList from '../components/ScanList';
+import { useHttpClient } from '../../shared/context/http-hook';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
 
-const DUMMY_SCANS = [
-    {
-        id: "scan1",
-        titlu: "Scan rutina",
-        descriere: "Scaneaza site-ul dupa ultimul commit in productie dd/mm/yyyy",
-        addr: "192.168.0.1",
-        tipScan: "WEB-SCAN",
-        creator: "utilizator1"
-
-    },
-    {
-        id: "scan2",
-        titlu: "Scan rutina",
-        descriere: "Scaneaza server pentru servicii vulnerabile",
-        addr: "192.168.0.1",
-        tipScan: "SERVER-SCAN",
-        creator: "utilizator2"
-
-    }
-
-]
 
 const UserScans = () => {
+    const [loadedScans, setLoadedScans] = useState();
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
+
     const userId = useParams().userId;
-    const loadedScans = DUMMY_SCANS.filter(scan => scan.creator === userId);
-    return <ScanList items={loadedScans}/>
+
+    useEffect(() => {
+        const fetchScans = async () => {
+            try {
+                const responseData = await sendRequest(`http://localhost:5000/api/reports/${userId}/myscans`);
+                setLoadedScans(responseData.scan)
+            } catch (err) {
+
+            }
+        };
+        fetchScans();
+    }, [sendRequest, userId]);
+
+    const scanDeletedHandler = (deletedScanId) => {
+        setLoadedScans(prevScans => prevScans.filter(scan => scan.id !== deletedScanId));
+    };
+
+    return (
+        <React.Fragment>
+            <ErrorModal error={error} onClear={clearError}/>
+            {isLoading && ( <div class="center"><LoadingSpinner asOverlay/></div> )}
+            {!isLoading && loadedScans && <ScanList items={loadedScans} onDeleteScan={scanDeletedHandler}/>}
+        </React.Fragment> );
 };
 
 export default UserScans;

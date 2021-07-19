@@ -1,39 +1,28 @@
-import React, { useEffect,useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect,useState,useContext } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
 
 import Input from '../../shared/components/FormElements/Input';
 import Button from '../../shared/components/FormElements/Button';
+import LoadingSpinner from '../../shared/components/UIElements/LoadingSpinner';
+import { AuthContext } from '../../shared/context/auth-context';
+import ErrorModal from '../../shared/components/UIElements/ErrorModal';
 import { VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH } from '../../shared/util/validators';
 import { useForm } from '../../shared/hooks/form-hook';
 import './ScanForm.css'
 import Card from '../../shared/components/UIElements/Card';
+import { useHttpClient } from '../../shared/context/http-hook';
 
 
-const DUMMY_SCANS = [
-    {
-        id: "scan1",
-        titlu: "Scan rutina",
-        descriere: "Scaneaza site-ul dupa ultimul commit in productie dd/mm/yyyy",
-        addr: "192.168.0.1",
-        tipScan: "WEB-SCAN",
-        creator: "utilizator1"
-
-    },
-    {
-        id: "scan2",
-        titlu: "Scan rutina",
-        descriere: "Scaneaza server pentru servicii vulnerabile",
-        addr: "192.168.0.1",
-        tipScan: "SERVER-SCAN",
-        creator: "utilizator2"
-
-    }
-
-]
 
 const UpdateScan = () => {
-    const [isLoading, setIsLoading] = useState(true);
+    const auth = useContext(AuthContext);
+
+    const {isLoading, error, sendRequest, clearError} = useHttpClient();
+    const[loadedScan, setLoadedScan] = useState();
     const scanId = useParams().scanId;
+    const userId = auth.userId;
+
+    const history = useHistory();
 
     const [formState, inputHandler, setFormData] = useForm({
         title: {
@@ -54,38 +43,58 @@ const UpdateScan = () => {
         }     
     },false);
 
-    const identifiedScan = DUMMY_SCANS.find(p => p.id === scanId);
-
     useEffect(() => {
-        if(identifiedScan){
-            setFormData({
-                title: {
-                    value: identifiedScan.titlu,
-                    isValid: true
-                },
-                descriere: {
-                    value: identifiedScan.descriere,
-                    isValid: true
-                },
-                ipdns: {
-                    value: identifiedScan.addr,
-                    isValid: true
-                },
-                tipScan: {
-                    value: identifiedScan.tipScan,
-                    isValid: true
-                }
-            }, true);
-        }
-        setIsLoading(false);
-    }, [setFormData,identifiedScan]);
+        const fetchScan = async () => {
+            try {
+                const responseData = await sendRequest(`http://localhost:5000/api/reports/${userId}}/myscans/${scanId}`);
+                setLoadedScan(responseData.scan);
+                setFormData({
+                    title: {
+                        value: responseData.scan.titlu,
+                        isValid: true
+                    },
+                    descriere: {
+                        value: responseData.scan.descriere,
+                        isValid: true
+                    },
+                    ipdns: {
+                        value: responseData.scan.addr,
+                        isValid: true
+                    },
+                    tipScan: {
+                        value: responseData.scan.tipScan,
+                        isValid: true
+                    }
+                }, true);
+            } catch (err) {}
+        };
+        fetchScan();
+    }, [sendRequest, userId, scanId, setFormData]);
 
-    const scanUpdateSubmitHandler = event => {
+    const scanUpdateSubmitHandler = async event => {
         event.preventDefault();
-        console.log(formState.inputs);
+        //console.log(formState.inputs);
+        try {
+                await sendRequest(`http://localhost:5000/api/reports/${userId}}/myscans/${scanId}`,'PATCH',JSON.stringify({
+                titlu: formState.inputs.title.value,
+                descriere: formState.inputs.descriere.value,
+            }),
+            {
+                'Content-Type': 'application/json'
+            });
+            history.push(`/${auth.userId}/myscans`);
+        } catch (err) {
+
+        }
     };
 
-    if(!identifiedScan){
+    if(isLoading){
+        return <div className="center">
+            <LoadingSpinner asOverlay/>
+            </div>
+    }
+
+    if(!loadedScan && !error ){
         return <div className="center">
             <Card>
                 <h2>Nu s-a putut gasi raportul respectiv</h2>
@@ -93,16 +102,11 @@ const UpdateScan = () => {
             </div>
     }
 
-    if(isLoading){
-        return <div className="center">
-            <Card>
-                <h2>Se incarca ...</h2>
-            </Card>
-            </div>
-    }
 
     return (
-        <form className="place-form" onSubmit={scanUpdateSubmitHandler}>
+        <React.Fragment>
+        <ErrorModal error={error} onClear={clearError} />
+        {!isLoading && loadedScan && <form className="place-form" onSubmit={scanUpdateSubmitHandler}>
         <label className="ipdns">RAPORT: {(formState.inputs.ipdns.value)}</label>
         <label className="tipscan">TIP SCANARE: {(formState.inputs.tipScan.value)}</label>
         <Input 
@@ -113,8 +117,8 @@ const UpdateScan = () => {
             validators={[VALIDATOR_REQUIRE()]} 
             errorText="Trebuie introdus un titlu valid." 
             onInput={inputHandler}
-            value={formState.inputs.title.value}
-            valid={formState.inputs.title.isValid}/>
+            value={loadedScan.titlu}
+            valid={true}/>
         <Input 
             id="descriere" 
             element="textarea"
@@ -122,10 +126,11 @@ const UpdateScan = () => {
             validators={[VALIDATOR_MINLENGTH(1)]} 
             errorText="Trebuie adaugata o descriere scurta." 
             onInput={inputHandler}
-            value={formState.inputs.descriere.value}
-            valid={formState.inputs.descriere.isValid}/>
+            value={loadedScan.descriere}
+            valid={true}/>
         <Button type="submit" disabled={!formState.isValid}>RESCAN</Button>
-    </form> 
+    </form> }
+    </React.Fragment>
     );
 };
 

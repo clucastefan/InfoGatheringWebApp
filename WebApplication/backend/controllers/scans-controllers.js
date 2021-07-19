@@ -32,17 +32,20 @@ const getScansByUserId  = async (req, res, next) => {
 const getScansByUserIdScanId = async (req, res, next) => {
     const userId = req.params.userId;
     const scanId = req.params.scanId;
+    const newUserId = userId.slice(0,-1);
 
     let scan;
     try{
-        scan = await Scan.findOne({creator: userId, _id: scanId});
+        scan = await Scan.findOne({_id: scanId});
     } catch(err) {
-        const error = new HttpError('Nu s-a putut gasi acel utilizator',500);
+        const error = new HttpError('Nu s-a putut gasi acel raport',500);
+        console.log(userId,newUserId);
         return next(error);
     }
 
     if (!scan) {
         const error = new HttpError('Unauthorized',404); 
+        console.log(userId,newUserId);
         return next(error);
     }
 
@@ -114,7 +117,7 @@ const updateScanById = async (req,res,next) => {
 
     let scan;
     try{
-        scan = await Scan.findOne({creator: userId, _id: scanId});
+        scan = await Scan.findOne({_id: scanId});
     } catch(err) {
         const error = new HttpError('Nu s-a putut actualiza acel raport',500);
         return next(error);
@@ -141,7 +144,7 @@ const deleteScanById = async (req,res,next) => {
 
     let scan;
     try{
-        scan = await Scan.findOne({creator: userId, _id: scanId}).populate('creator');
+        scan = await Scan.findOne({_id: scanId}).populate('creator');
     } catch(err) {
         const error = new HttpError('Nu s-a putut sterge acel raport',500);
         return next(error);
