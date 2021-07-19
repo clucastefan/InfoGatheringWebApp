@@ -1,4 +1,3 @@
-const uuid = require('uuid/v4');
 const HttpError = require('../models/http-error');
 const User = require('../models/user');
 const mongoose = require('mongoose');

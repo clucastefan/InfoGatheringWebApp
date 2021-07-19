@@ -81,11 +81,7 @@ const createdScan = async (req,res,next) => {
         return next(error);
     }
 
-    console.log(user);
-
     try {
-        //await createdScan.save();
-
         const sess = await mongoose.startSession();
         sess.startTransaction();
         await createdScan.save({session: sess});
@@ -145,14 +141,29 @@ const deleteScanById = async (req,res,next) => {
 
     let scan;
     try{
-        scan = await Scan.findOne({creator: userId, _id: scanId});
+        scan = await Scan.findOne({creator: userId, _id: scanId}).populate('creator');
     } catch(err) {
         const error = new HttpError('Nu s-a putut sterge acel raport',500);
         return next(error);
     }
 
+    if(!scan){
+        const error = new HttpError("Nu s-a putut gasi un raport pentru acest id",404);
+        return next(error);
+    }
+
     try {
-        await scan.remove();
+        // await scan.remove();
+
+        const sess = await mongoose.startSession();
+        sess.startTransaction();
+        await scan.remove({session : sess});
+        scan.creator.scans.pull(scan);
+
+        await scan.creator.save({session: sess});
+
+        await sess.commitTransaction();
+
     } catch (err) {
         const error = new HttpError('A aparut o eroare.',500);
         return next(error);
