@@ -71,7 +71,7 @@ const createdScan = async (req,res,next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
         console.log(errors);
-        throw new HttpError("Invalid data. Check your input.",422);
+        return next(new HttpError("Invalid data. Check your input.",422));
     }
 
     const { titlu, descriere, addr, tipScan, creator } = req.body;
@@ -98,7 +98,7 @@ const updateScanById = async (req,res,next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
         console.log(errors);
-        throw new HttpError("Invalid data. Check your input.",422);
+        return next(new HttpError("Invalid data. Check your input.",422));
     }
 
     const { titlu, descriere } = req.body;
