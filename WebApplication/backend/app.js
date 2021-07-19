@@ -1,5 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const creds = require('./CREDENTIALS.js')
 
 const scansRoutes = require('./routes/scan-routes');
 const usersRoutes = require('./routes/users-routes')
@@ -27,6 +30,12 @@ app.use((error, req, res, next) => {
     });
 });
 
-
-
-app.listen(5000);
+const newUrl = 'mongodb+srv://' + creds.USERNAME + ':'+ creds.PASSWORD +'@cluster0.jm9or.mongodb.net/licenta?retryWrites=true&w=majority'
+mongoose
+    .connect(newUrl)
+    .then( () => {
+        app.listen(5000);
+    })
+    .catch(err => {
+        console.log(err);
+    });

@@ -2,6 +2,7 @@ const uuid = require('uuid/v4');
 const { validationResult } = require('express-validator');
 
 const HttpError = require('../models/http-error');
+const Scan = require('../models/scan');
 
 let DUMMY_SCANS = [
     {
@@ -22,40 +23,51 @@ let DUMMY_SCANS = [
     }
 ];
 
-const getScansByUserId  = (req, res, next) => {
+const getScansByUserId  = async (req, res, next) => {
     const userId = req.params.userId;
-    const scan = DUMMY_SCANS.filter( p => {
-        return p.creator === userId;
-    });
+
+    let scan;
+    try{
+        scan = await Scan.find({creator: userId}).exec();
+    } catch(err) {
+        const error = new HttpError('Nu s-a putut gasi nicio inregistrate pentru acest utilizator',500);
+        return next(error);
+    }
+    
 
     if (!scan || scan.length === 0) {
-        throw new HttpError('Unauthorized',404);        
+        const error = new HttpError('Unauthorized',404); 
+        return next(error);       
     }
 
     res.json({
-        scan: scan
+        scan: scan.map(scan => scan.toObject({getters: true}))
     });
 }
 
-const getScansByUserIdScanId = (req, res, next) => {
+const getScansByUserIdScanId = async (req, res, next) => {
     const userId = req.params.userId;
     const scanId = req.params.scanId;
-    const scan = DUMMY_SCANS.find( p => {
-        return p.creator === userId && p.id === scanId;
-    });
+
+    let scan;
+    try{
+        scan = await Scan.findOne({creator: userId, _id: scanId});
+    } catch(err) {
+        const error = new HttpError('Nu s-a putut gasi acel utilizator',500);
+        return next(error);
+    }
 
     if (!scan) {
-        return next(
-            new HttpError('Aceasta resursa nu exista', 404)
-        );
+        const error = new HttpError('Unauthorized',404); 
+        return next(error);
     }
 
     res.json({
-        scan: scan
+        scan: scan.toObject({getters:true})
     });
 }
 
-const createdScan = (req,res,next) => {
+const createdScan = async (req,res,next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
         console.log(errors);
@@ -63,62 +75,79 @@ const createdScan = (req,res,next) => {
     }
 
     const { titlu, descriere, addr, tipScan, creator } = req.body;
-    const createdScan = {
-        id: uuid(),
+    const createdScan = new Scan({
         titlu,
         descriere,
         addr,
         tipScan,
         creator
-    };
+    });
 
-    DUMMY_SCANS.push(createdScan);
+    try {
+        await createdScan.save();
+    } catch (err) {
+        const error = new HttpError('Adaugarea scanarii a esuat. Incearca din nou',500);
+        return next(error);
+    }
+    
 
     res.status(201).json({scan: createdScan});
 };
 
-const updateScanById = (req,res,next) => {
+const updateScanById = async (req,res,next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()){
         console.log(errors);
         throw new HttpError("Invalid data. Check your input.",422);
     }
 
-    const { titlu, descriere} = req.body;
+    const { titlu, descriere } = req.body;
     const userId = req.params.userId;
     const scanId = req.params.scanId;
 
-    const updatedScanById = { ...DUMMY_SCANS.find( p => {
-        return p.creator === userId && p.id === scanId;
-    })};
-    const scanIndex = DUMMY_SCANS.findIndex( p => {
-        return p.creator === userId && p.id === scanId;
-    });
-
-    updatedScanById.titlu = titlu;
-    updatedScanById.descriere = descriere;
-
-    DUMMY_SCANS[scanIndex] = updatedScanById;
-
-    res.status(200).json({scan: updatedScanById});
-
-}
-
-const deleteScanById = (req,res,next) => {
-    const userId = req.params.userId;
-    const scanId = req.params.scanId;
-
-    const scanIndex = DUMMY_SCANS.findIndex( p => {
-        return p.creator === userId && p.id === scanId;
-    });
-
-    if (scanIndex === -1){
-        throw new HttpError('Nu s-a gasit raportul respectiv.',404)
+    let scan;
+    try{
+        scan = await Scan.findOne({creator: userId, _id: scanId});
+    } catch(err) {
+        const error = new HttpError('Nu s-a putut actualiza acel raport',500);
+        return next(error);
     }
 
-    DUMMY_SCANS.splice(scanIndex,1);
+    scan.titlu = titlu;
+    scan.descriere = descriere;
+
+    try {
+        await scan.save();
+    } catch (err) {
+        const error = new HttpError('A aparut o eroare.',500);
+        return next(error);
+    }
+
+    res.json({
+        scan: scan.toObject({getters:true})
+    });
+}
+
+const deleteScanById = async (req,res,next) => {
+    const userId = req.params.userId;
+    const scanId = req.params.scanId;
+
+    let scan;
+    try{
+        scan = await Scan.findOne({creator: userId, _id: scanId});
+    } catch(err) {
+        const error = new HttpError('Nu s-a putut sterge acel raport',500);
+        return next(error);
+    }
+
+    try {
+        await scan.remove();
+    } catch (err) {
+        const error = new HttpError('A aparut o eroare.',500);
+        return next(error);
+    }
+
     res.status(200).json({message: "Deleted"});
-    console.log(DUMMY_SCANS);
 };
 
 exports.getScansByUserId = getScansByUserId;
