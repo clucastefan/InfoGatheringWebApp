@@ -1,0 +1,123 @@
+
+-----------------
+DIRB v2.22    
+By The Dark Raver
+-----------------
+
+OUTPUT_FILE: SCANS/192.168.254.136/dirb_scan
+START_TIME: Tue Jul 20 23:44:12 2021
+URL_BASE: http://192.168.254.136/
+WORDLIST_FILES: /usr/share/dirb/wordlists/common.txt
+OPTION: Not Stopping on warning messages
+
+-----------------
+
+GENERATED WORDS: 4613
+
+---- Scanning URL: http://192.168.254.136/ ----
+==> DIRECTORY: http://192.168.254.136/dvwa/
++ http://192.168.254.136/cgi-bin/ (CODE:403|SIZE:296)
+==> DIRECTORY: http://192.168.254.136/dav/
++ http://192.168.254.136/index (CODE:200|SIZE:891)
++ http://192.168.254.136/index.php (CODE:200|SIZE:891)
++ http://192.168.254.136/phpinfo (CODE:200|SIZE:48107)
++ http://192.168.254.136/phpinfo.php (CODE:200|SIZE:48119)
+==> DIRECTORY: http://192.168.254.136/phpMyAdmin/
++ http://192.168.254.136/server-status (CODE:403|SIZE:301)
+==> DIRECTORY: http://192.168.254.136/test/
+==> DIRECTORY: http://192.168.254.136/twiki/
+
+---- Entering directory: http://192.168.254.136/dvwa/ ----
+==> DIRECTORY: http://192.168.254.136/dvwa/dvwa/
++ http://192.168.254.136/dvwa/about (CODE:302|SIZE:0)
+==> DIRECTORY: http://192.168.254.136/dvwa/config/
+==> DIRECTORY: http://192.168.254.136/dvwa/docs/
+==> DIRECTORY: http://192.168.254.136/dvwa/external/
++ http://192.168.254.136/dvwa/favicon.ico (CODE:200|SIZE:1406)
++ http://192.168.254.136/dvwa/index (CODE:200|SIZE:4493)
++ http://192.168.254.136/dvwa/index.php (CODE:200|SIZE:4493)
++ http://192.168.254.136/dvwa/instructions (CODE:302|SIZE:0)
++ http://192.168.254.136/dvwa/login (CODE:200|SIZE:1289)
++ http://192.168.254.136/dvwa/logout (CODE:302|SIZE:0)
++ http://192.168.254.136/dvwa/php.ini (CODE:200|SIZE:148)
++ http://192.168.254.136/dvwa/phpinfo (CODE:302|SIZE:0)
++ http://192.168.254.136/dvwa/phpinfo.php (CODE:302|SIZE:0)
++ http://192.168.254.136/dvwa/README (CODE:200|SIZE:4934)
++ http://192.168.254.136/dvwa/robots (CODE:200|SIZE:26)
++ http://192.168.254.136/dvwa/robots.txt (CODE:200|SIZE:26)
++ http://192.168.254.136/dvwa/security (CODE:200|SIZE:4101)
++ http://192.168.254.136/dvwa/setup (CODE:200|SIZE:3549)
+
+---- Entering directory: http://192.168.254.136/dav/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: http://192.168.254.136/phpMyAdmin/ ----
++ http://192.168.254.136/phpMyAdmin/calendar (CODE:200|SIZE:4145)
++ http://192.168.254.136/phpMyAdmin/changelog (CODE:200|SIZE:74593)
++ http://192.168.254.136/phpMyAdmin/ChangeLog (CODE:200|SIZE:40540)
+==> DIRECTORY: http://192.168.254.136/phpMyAdmin/contrib/
++ http://192.168.254.136/phpMyAdmin/docs (CODE:200|SIZE:4583)
++ http://192.168.254.136/phpMyAdmin/error (CODE:200|SIZE:1063)
++ http://192.168.254.136/phpMyAdmin/export (CODE:200|SIZE:4145)
++ http://192.168.254.136/phpMyAdmin/favicon.ico (CODE:200|SIZE:18902)
++ http://192.168.254.136/phpMyAdmin/import (CODE:200|SIZE:4145)
++ http://192.168.254.136/phpMyAdmin/index (CODE:200|SIZE:4145)
++ http://192.168.254.136/phpMyAdmin/index.php (CODE:200|SIZE:4145)
+==> DIRECTORY: http://192.168.254.136/phpMyAdmin/js/
+==> DIRECTORY: http://192.168.254.136/phpMyAdmin/lang/
+==> DIRECTORY: http://192.168.254.136/phpMyAdmin/libraries/
++ http://192.168.254.136/phpMyAdmin/license (CODE:200|SIZE:18011)
++ http://192.168.254.136/phpMyAdmin/LICENSE (CODE:200|SIZE:18011)
++ http://192.168.254.136/phpMyAdmin/main (CODE:200|SIZE:4227)
++ http://192.168.254.136/phpMyAdmin/navigation (CODE:200|SIZE:4145)
++ http://192.168.254.136/phpMyAdmin/phpinfo (CODE:200|SIZE:0)
++ http://192.168.254.136/phpMyAdmin/phpinfo.php (CODE:200|SIZE:0)
++ http://192.168.254.136/phpMyAdmin/phpmyadmin (CODE:200|SIZE:21389)
++ http://192.168.254.136/phpMyAdmin/print (CODE:200|SIZE:1063)
++ http://192.168.254.136/phpMyAdmin/readme (CODE:200|SIZE:2624)
++ http://192.168.254.136/phpMyAdmin/README (CODE:200|SIZE:2624)
++ http://192.168.254.136/phpMyAdmin/robots (CODE:200|SIZE:26)
++ http://192.168.254.136/phpMyAdmin/robots.txt (CODE:200|SIZE:26)
+==> DIRECTORY: http://192.168.254.136/phpMyAdmin/scripts/
+==> DIRECTORY: http://192.168.254.136/phpMyAdmin/setup/
++ http://192.168.254.136/phpMyAdmin/sql (CODE:200|SIZE:4145)
+==> DIRECTORY: http://192.168.254.136/phpMyAdmin/test/
+==> DIRECTORY: http://192.168.254.136/phpMyAdmin/themes/
++ http://192.168.254.136/phpMyAdmin/TODO (CODE:200|SIZE:235)
++ http://192.168.254.136/phpMyAdmin/webapp (CODE:200|SIZE:6903)
+
+---- Entering directory: http://192.168.254.136/test/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: http://192.168.254.136/twiki/ ----
+==> DIRECTORY: http://192.168.254.136/twiki/bin/
++ http://192.168.254.136/twiki/data (CODE:403|SIZE:298)
++ http://192.168.254.136/twiki/index (CODE:200|SIZE:782)
++ http://192.168.254.136/twiki/index.html (CODE:200|SIZE:782)
+==> DIRECTORY: http://192.168.254.136/twiki/lib/
++ http://192.168.254.136/twiki/license (CODE:200|SIZE:19440)
+==> DIRECTORY: http://192.168.254.136/twiki/pub/
++ http://192.168.254.136/twiki/readme (CODE:200|SIZE:4334)
++ http://192.168.254.136/twiki/templates (CODE:403|SIZE:303)
+
+---- Entering directory: http://192.168.254.136/dvwa/dvwa/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.
+    (Use mode '-w' if you want to scan it anyway)
+==> DIRECTORY: http://192.168.254.136/dvwa/dvwa/css/
+==> DIRECTORY: http://192.168.254.136/dvwa/dvwa/images/
+==> DIRECTORY: http://192.168.254.136/dvwa/dvwa/includes/
+==> DIRECTORY: http://192.168.254.136/dvwa/dvwa/js/
+
+---- Entering directory: http://192.168.254.136/dvwa/config/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: http://192.168.254.136/dvwa/docs/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.
+    (Use mode '-w' if you want to scan it anyway)
+
+---- Entering directory: http://192.168.254.136/dvwa/external/ ----
+(!) WARNING: Directory IS LISTABLE. No need to scan it.
+    (Use mode '-w' if you want to scan it anyway)

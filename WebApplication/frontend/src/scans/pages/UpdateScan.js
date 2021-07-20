@@ -71,6 +71,7 @@ const UpdateScan = () => {
         fetchScan();
     }, [sendRequest, userId, scanId, setFormData]);
 
+
     const scanUpdateSubmitHandler = async event => {
         event.preventDefault();
         //console.log(formState.inputs);
@@ -87,6 +88,35 @@ const UpdateScan = () => {
 
         }
     };
+
+    const downloadHandler = async event => {
+        event.preventDefault();
+        //console.log(formState.inputs);
+        try {
+                await sendRequest(`http://localhost:3000/home/cluca/Downloads/raport_server.txt`,'GET',
+            {
+                'Content-Type': 'application/octet-stream',
+                'Content-Disposition': 'attachment;filename=\"raport_server.txt\"'
+            });
+        } catch (err) {
+
+        }
+    };
+
+    let numeFisier;
+    switch(formState.inputs.tipScan.value) {
+        case 'FULL-SCAN':
+            numeFisier = 'raport_full.txt';
+          break;
+        case 'WEB-SCAN':
+            numeFisier = 'raport_web.txt';
+          break;
+        case 'SERVER-SCAN':
+            numeFisier = 'raport_server.txt';
+            break;
+        default:
+            numeFisier = 'raport_full.txt';
+      } 
 
     if(isLoading){
         return <div className="center">
@@ -128,6 +158,11 @@ const UpdateScan = () => {
             onInput={inputHandler}
             value={loadedScan.descriere}
             valid={true}/>
+        <label className="center"> REZULTATE </label>
+        <a className="center"
+         href={`/home/cluca/Documents/Licenta/WebApplication/backend/SCANS/${formState.inputs.ipdns.value}/${numeFisier}`}>
+            Download File
+        </a>        
         <Button type="submit" disabled={!formState.isValid}>RESCAN</Button>
     </form> }
     </React.Fragment>

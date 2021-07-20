@@ -1,11 +1,11 @@
 const uuid = require('uuid/v4');
 const { validationResult } = require('express-validator');
+const { spawn,exec } = require("child_process");
 
 const HttpError = require('../models/http-error');
 const Scan = require('../models/scan');
 const User = require('../models/user');
 const mongoose = require('mongoose');
-
 
 const getScansByUserId  = async (req, res, next) => {
     const userId = req.params.userId;
@@ -71,9 +71,9 @@ const createdScan = async (req,res,next) => {
     });
 
     let user;
-
     try {
         user = await User.findById(creator);
+
     } catch (err) {
         const error = new HttpError('Scanarea nu poate efectua.',500);
         return next(error);
@@ -84,7 +84,36 @@ const createdScan = async (req,res,next) => {
         return next(error);
     }
 
+    let comandaScan;
+    switch(tipScan) {
+        case 'FULL-SCAN':
+          comandaScan = `/home/cluca/Documents/Licenta/ToolAutomatization/scan_full.py`;
+          break;
+        case 'WEB-SCAN':
+            comandaScan = `/home/cluca/Documents/Licenta/ToolAutomatization/scan_web.py`;
+          break;
+        case 'SERVER-SCAN':
+            comandaScan = `/home/cluca/Documents/Licenta/ToolAutomatization/scan_server.py`;
+            break;
+        default:
+            comandaScan = `/home/cluca/Documents/Licenta/ToolAutomatization/scan_full.py`;
+      }
+    
+    const newProcessDescriptor = await spawn(
+        'python3', 
+        [`${comandaScan}`, `${addr}`]
+    );
+
+    newProcessDescriptor.on('error', (error) => {
+      console.log(`child process creating error with error ${error}`);
+    });
+
+    newProcessDescriptor.on('close', async (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+
     try {
+    
         const sess = await mongoose.startSession();
         sess.startTransaction();
         await createdScan.save({session: sess});
@@ -98,9 +127,8 @@ const createdScan = async (req,res,next) => {
     } catch (err) {
         const error = new HttpError('Adaugarea scanarii a esuat. Incearca din nou',500);
         return next(error);
-    }
+    }  
     
-
     res.status(201).json({scan: createdScan});
 };
 
